@@ -37,9 +37,10 @@ build/
 ### Mac OS ###
 .DS_Store
 
-out/
-.idea/
-.mvn/
-mvnw
 mvnw.cmd
+mvnw
+.mvn/
+.idea/
+tiw_html.iml/
 src/main/webapp/WEB-INF/web.xml
+out/

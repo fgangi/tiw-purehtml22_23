@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>THE PLAYLIST</title>
+    </head>
+    <body>
+        <h3 th:text="${songError}">errore</h3>
+        <div>
+            <div>
+                <img th:src="@{GetImage/{image}(image=(${song.album.fileImage}))}" alt="cover" src="../images/icon.png">
+                <div>
+                    <div>
+                        <h1 th:text="${song.title}">Title</h1>
+                    </div>
+                    <div>
+                        <h1 th:text="'Singer: '+${song.album.singer}">Singer</h1>
+                        <h3 th:text="'Album: '+${song.album.title}">Album</h3>
+                        <p th:text="'Publication year: '+${song.album.year}">Publication year</p>
+                        <p th:text="'Genre: '+${song.genre}">Genre</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <audio controls>
+                    <source th:src="@{GetSong/{song}(song=(${song.fileAudio}))}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio>
+            </div>
+        </div>
+        <form action="SignOut" method="get">
+            <div>
+                <input type="submit" value="Sign Out">
+            </div>
+        </form>
+        <form action="Home" method="get">
+            <div>
+                <input type="submit" value="Home">
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>THE PLAYLIST</title>
+    </head>
+    <body>
+        <div>
+            <h1>Welcome<span th:text=" ${session.user}"> username</span></h1>
+        </div>
+        <h2 style="text-align: center;">
+            HOME
+        </h2>
+        <div th:if="${generalError != null}">
+            <p th:text="${generalError}">generalError</p>
+        </div>
+        <div th:if="${message != null}">
+            <p th:text="${message}">message</p>
+        </div>
+        
+        <div>
+            <div>
+                <h2>
+                    Your Playlists
+                </h2>
+                <p th:text="${playlistListError}">playlistList error</p>
+                <div>
+                    <table>
+                        <tbody>
+                            <tr th:each="playlist : ${playlists}">
+                                <td><a th:href="@{Playlist(playlistName=${playlist.name})}">
+                                    <span th:text="${playlist.name}">Playlist name</span></a>
+                                </td>
+                                <td><span th:text="${#dates.format(playlist.creationDate , 'dd.MM.yyyy')}">dd.MM.yyy</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h2>
+                    Create new Playlist
+                </h2>
+                <p th:text="${playlistError}">playlist error</p>
+                <form action="CreatePlaylist" method="post">
+                    <label for="playlistName">Playlist Name</label>
+                    <input type="text" name="playlistName" id="playlistName" required>
+                    <input type="submit" name="editType" value="CREATE">
+                    <div>
+	                    <div th:each="song, status: ${songs}">
+	                        <input type="checkbox" th:name="'song'+${status.index}" th:id="'song'+${status.index}" th:value="${song.id}">
+	                        <label th:for="'song'+${status.index}" th:text="${song.title}">song title</label>
+	                    </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+        <div>
+            <h3></h3>
+            <h3>Add Song</h3>
+            <p th:text="${songError}">song error</p>
+            <form action="CreateSong" method="post" enctype="multipart/form-data">
+                <label for="songTitle">Song Title</label>
+                <input type="text" name="songTitle" id="songTitle" required>
+                <br>
+                <label for="genre">Genre</label>
+                <input list="genre"  name="genre" required>
+                <datalist id="genre">
+                    <option value="Others"></option>
+                    <option value="Rap"></option>
+                    <option value="Rock"></option>
+                    <option value="Jazz"></option>
+                    <option value="Pop"></option>
+                </datalist>
+                <br>
+                <label for="fileAudio">Upload Track</label>
+                <input type="file" name="fileAudio" id="fileAudio" accept="audio/mp3, audio/wav" required>
+                <br>
+                <label for="albumTitle">Album Title</label>
+                <input type="text" name="albumTitle" id="albumTitle" required>
+                <br>
+                <label for="singer">Singer</label>
+                <input type="text" name="singer" id="singer" required>
+                <br>
+                <label for="fileImage">Upload Cover</label>
+                <input type="file" name="fileImage" id="fileImage" accept="img/*" required>
+                <br>
+                <label for="year">Release Year</label>
+                <input type="number" name="year" id="year" required>
+                <br>
+                <input type="submit" value="Create">
+            </form>
+        </div>
+        <form action="SignOut" method="get">
+            <div>
+                <input type="submit" value="Sign Out">
+            </div>
+        </form>
+    </body>
+</html>

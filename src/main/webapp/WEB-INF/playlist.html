@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>THE PLAYLIST</title>
+    </head>
+    <body>
+        <h1 th:text="${playlistName}">Title</h1>
+        <div th:if="${not #lists.isEmpty(songs)}">
+        	<div>
+                <form method="get" th:action="@{Playlist}">
+                    <input type="hidden" name="playlistName" th:value="${playlistName}" />
+                    <input type="hidden" name="lowerBound" th:value="${lowerBound - 5}" />
+                    <button type="submit" th:if="${previousButton}">PREV</button>
+                </form>
+            </div>
+            <div>
+	            <table>
+	                <tbody>
+	                    <tr>
+	                        <td th:each="song : ${songs}">
+	                            <table>
+	                                <tbody>
+	                                    <tr>
+	                                        <td>
+	                                            <img th:src="@{GetImage/{image}(image=${song.album.fileImage})}" src="../images/icon.png" width="200" height="200">
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                            <a th:href="@{Player(songId=${song.id})}">
+	                                                <span th:text="${song.title}" style="font-size: 20px;">Title</span>
+	                                            </a>
+	                                        </td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+	                        </td>
+	                    </tr>
+	                </tbody>
+	            </table>
+            </div>   
+            <div>
+                <form method="get" th:action="@{Playlist}">
+                    <input type="hidden" name="playlistName" th:value="${playlistName}" />
+                    <input type="hidden" name="lowerBound" th:value="${lowerBound + 5}" />
+                    <button type="submit" th:if="${nextButton}">NEXT</button>
+                </form>
+            </div>
+        </div>
+        <h3 th:text="${playlistError}">errore</h3>
+        <h3 th:text="${message}">message</h3>
+        <h2>
+            <span th:text="'MODIFYING: '+${playlistName}">
+                MODIFYING: Playlist Name
+            </span>
+        </h2>
+        <form id="form" action="EditPlaylist" method="post">
+            <button type="submit" name="playlistName" th:value="${playlistName}">
+                <span>
+                    UPDATE
+                </span>
+            </button>
+            <div>
+                <div th:each="song, status: ${notInPlaylistSongs}">
+                    <input type="radio" name="song" th:id="${status.index}" th:value="${song.id}">
+                <label th:for="${status.index}" th:text="${song.title}">song title</label>
+                </div>
+            </div>
+        </form>
+        <form action="SignOut" method="get">
+            <div>
+                <input type="submit" value="Sign Out">
+            </div>
+        </form>
+        <form action="Home" method="get">
+            <div>
+                <input type="submit" value="Home">
+            </div>
+        </form>
+    </body>
+</html>

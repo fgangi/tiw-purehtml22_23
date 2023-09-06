@@ -69,7 +69,7 @@ public class CreateSongServlet extends HttpServlet {
 		if(songError == null && (songTitle.length() > 50)) songError = "Song title is too long";
 		if(songError == null && !( genre.equals("Others") || genre.equals("Rap") || genre.equals("Rock") || genre.equals("Jazz") || genre.equals("Pop") )) songError = "Genre not valid";
 		if(songError == null && (singer.length() > 50)) songError = "Singer name is too long";
-		if(songError == null && (singer.length() > 50)) songError = "Album title is too long";
+		if(songError == null && (albumTitle.length() > 50)) songError = "Album title is too long";
 		
 		if(songError == null) {
 			try {

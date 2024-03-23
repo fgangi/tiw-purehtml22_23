@@ -1,4 +1,4 @@
-# Project (Informatic Technologies for the Web) A.Y. 2022-23
+# Project (Informatic Technologies for the Web) A.Y. 2022-23 [HTML-only version]
 Progetto (Tecnologie Informatiche per il Web) A.A. 2022-2023
 ## Music Playlist Manager
 
@@ -18,3 +18,6 @@ Frontend:
 
 Backend:
 **Java**
+
+### Authors
+Francesco Gangi, Mirko Gentile.
